@@ -1,0 +1,19 @@
+{
+    "projects":[
+    {
+        "nom":"Orly structure",
+        "debut":"07-01-2013",
+        "fin":"01-02-2013"
+    },
+    {
+        "nom":"Cuistot integration",
+        "debut":"04-02-2013",
+        "fin":"08-02-2013"
+    },
+    {
+        "nom":"Repaq",
+        "debut":"11-02-2013",
+        "fin":"15-02-2013"
+    }
+    ]
+}
