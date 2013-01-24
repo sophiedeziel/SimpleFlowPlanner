@@ -13,11 +13,13 @@
             <h1>Projets</h1>
             <ul>
                 
+                
             </ul>
             
         </div>
+        
         <div id="calendar">
-            
+           <div id="weekNames"></div> 
         </div>
     </body>
 </html>

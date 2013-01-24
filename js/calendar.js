@@ -1,61 +1,105 @@
+
+cal_days_in_month = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
+mois = ['janvier', 'février', 'mars', 'avril', 'mai', 'juin', 'juillet', 'aout', 'septemble', 'octobre', 'novembre', 'décembre'];
+days = ['l', 'm','m','j','v','s','d'];
+today = new Date();
+thisDay = today.getDate();
+thisMonth = today.getMonth();
+thisYear = today.getFullYear();
+
+console.log(thisDay);
+
 $(function(){
-    cal_days_in_month = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
-    mois = ['janvier', 'février', 'mars', 'avril', 'mai', 'juin', 'juillet', 'aout', 'septemble', 'octobre', 'novembre', 'décembre'];
-    days = ['l', 'm','m','j','v','s','d'];
-    today = new Date();
-    thisDay = today.getUTCDate();
-    thisMonth = today.getUTCMonth();
-    console.log(thisDay);
+    createCalendar();
+});
+
+function createCalendar(){
+    displayWeeks();
+    beforeToday(6);
+    createInterval(today, thisDay, 1000);
+
+}
+
+function beforeToday(numWeeks){
+
+    var _today = new Date();
+    _today.setDate( today.getDate() - (numWeeks *7) - (thisDay%7)  );
     
-    for(var i = 0; i < days.length; i++){
-        if(i%7 <=4){
-            $('#calendar').append($('<div/>').addClass('names').html(days[i])); 
-        } 
-    }
+    var _thisDay = _today.getDate();
+    var _thisMonth = _today.getMonth();
+    var _thisYear = _today.getFullYear();
     
-    $('#calendar').append($('<div/>').addClass('spacer'));
+    var oneDay = 24*60*60*1000;	
+    var diffDays = Math.abs((today.getTime() - _today.getTime())/(oneDay));
+
+    createInterval(_today, 0, diffDays);
+}
+
+function createInterval(_date, from, to){
     
-    for(var i = thisDay-7 - (thisDay%7); i < thisDay; i++){
-        if(i%7 == 0){
-            $('#calendar').append($('<div/>').addClass('spacer'));
+    var _thisDay = _date.getDate();
+    var _thisMonth = _date.getUTCMonth();
+    var _thisYear = _date.getUTCFullYear();
+    var j = _thisDay;
+    
+    for(var i = from; i < to; i++){
+        createDay(i, j, _date);
+            
+        if((i%7 ==6) && (j<=7)) {
+            $('#calendar').append($('<div/>').addClass('mois').html(mois[_thisMonth]));
         }
-        if(i%7 <=4){
-            $('#calendar').append($('<div/>').addClass('blank').html(i)); 
-        }
-    }
-    
-    var j = thisDay;
-    for(var i = thisDay; i < 1000; i++){
-        if(i%7 == 0){
-            $('#calendar').append($('<div/>').addClass('spacer'));
-        }
+
+        var monthLength = cal_days_in_month[_thisMonth%12];
         
-        if(i%7 <=4){
-            div = $('<div/>').addClass('blank').html(j);
-            if(i==thisDay){
-                div.css({'margin': '1px', 'border': 'solid #CCCCCC 1px'})
-            }
-            $('#calendar').append(div); 
-        } else if((i%7 ==6) && (j<=7)) {
-            $('#calendar').append($('<div/>').addClass('mois').html(mois[thisMonth]));
-        }
-        
-        
-    
-  
-        var monthLength = cal_days_in_month[thisMonth%12];
-        if (thisMonth%12 == 1) { 
+        if (_thisMonth%12 == 1) { 
             if((this.year % 4 == 0 && this.year % 100 != 0) || this.year % 400 == 0){
                 monthLength = 29;
             }
         }
+        
         if(j >= monthLength){
             j=0;
-            thisMonth++;
+            _thisMonth++;
+            if(_thisMonth >= 12) {
+                _thisMonth = 0;
+                _thisYear++;
+            }
             
         }
         j++;
     }
+}
+
+
+
+function displayWeeks(){
+    for(var i = 0; i < days.length; i++){
+        if(i%7 <=4){
+            $('#weekNames').append($('<div/>').addClass('names').html(days[i])); 
+        } 
+    }
+    
+    $('#calendar').append($('<div/>').addClass('spacer'));
+}
+
+function createDay(i, d, _date){
+    
+    var _thisDay = _date.getDate();
+    var _thisMonth = _date.getMonth();
+    var _thisYear = _date.getFullYear();
     
     
-});
+    if(i % 7 == 0){
+        $('#calendar').append($('<div/>').addClass('spacer'));
+    }
+    var div = $('<div/>').addClass('blank').attr('id',d + "-" + _thisMonth + 1 + "-" + _thisYear).html(d); 
+           
+    if(i == thisDay && _date == today){
+        div.addClass('today');
+        
+    }
+    if(i%7 <=4){
+        $('#calendar').append(div);
+    }
+}
+
