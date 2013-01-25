@@ -7,7 +7,6 @@ thisDay = today.getDate();
 thisMonth = today.getMonth();
 thisYear = today.getFullYear();
 
-console.log(thisDay);
 
 $(function(){
     createCalendar();
@@ -17,7 +16,6 @@ function createCalendar(){
     displayWeeks();
     beforeToday(6);
     createInterval(today, thisDay, 1000);
-
 }
 
 function beforeToday(numWeeks){
@@ -38,8 +36,8 @@ function beforeToday(numWeeks){
 function createInterval(_date, from, to){
     
     var _thisDay = _date.getDate();
-    var _thisMonth = _date.getUTCMonth();
-    var _thisYear = _date.getUTCFullYear();
+    var _thisMonth = _date.getMonth();
+    var _thisYear = _date.getFullYear();
     var j = _thisDay;
     
     for(var i = from; i < to; i++){
@@ -69,8 +67,6 @@ function createInterval(_date, from, to){
         j++;
     }
 }
-
-
 
 function displayWeeks(){
     for(var i = 0; i < days.length; i++){
