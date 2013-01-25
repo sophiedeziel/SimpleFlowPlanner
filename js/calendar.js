@@ -10,7 +10,23 @@ thisYear = today.getFullYear();
 
 $(function(){
     createCalendar();
+    getProjects();
 });
+
+
+
+function getProjects(){
+    $.getJSON("projets.json", jsonHandler);
+}
+
+function jsonHandler(data){
+    console.log(data);
+    $.each(data.projects, function(i, project){
+        console.log(project);
+        $("#projects ul").append($("<li/>").append($('<span/>').css("background-color", project.color)).append(project.nom));
+        $("#"+ project.deadline).css("background-color", project.color);
+    });
+}
 
 function createCalendar(){
     displayWeeks();
@@ -41,7 +57,7 @@ function createInterval(_date, from, to){
     var j = _thisDay;
     
     for(var i = from; i < to; i++){
-        createDay(i, j, _date);
+        createDay(i, j, _date, _thisMonth, _thisYear);
             
         if((i%7 ==6) && (j<=7)) {
             $('#calendar').append($('<div/>').addClass('mois').html(mois[_thisMonth]));
@@ -78,17 +94,12 @@ function displayWeeks(){
     $('#calendar').append($('<div/>').addClass('spacer'));
 }
 
-function createDay(i, d, _date){
-    
-    var _thisDay = _date.getDate();
-    var _thisMonth = _date.getMonth();
-    var _thisYear = _date.getFullYear();
-    
+function createDay(i, d, _date, _thisMonth, _thisYear){
     
     if(i % 7 == 0){
         $('#calendar').append($('<div/>').addClass('spacer'));
     }
-    var div = $('<div/>').addClass('blank').attr('id',d + "-" + _thisMonth + 1 + "-" + _thisYear).html(d); 
+    var div = $('<div/>').addClass('blank').attr('id',d + "-" + pad((_thisMonth + 1), 2) + "-" + _thisYear).html(d); 
            
     if(i == thisDay && _date == today){
         div.addClass('today');
@@ -99,3 +110,12 @@ function createDay(i, d, _date){
     }
 }
 
+
+function pad(number, length) {
+    var str = '' + number;
+    while (str.length < length) {
+        str = '0' + str;
+    }
+
+    return str;
+}
