@@ -6,7 +6,7 @@ today = new Date();
 thisDay = today.getDate();
 thisMonth = today.getMonth();
 thisYear = today.getFullYear();
-
+oneDay = 24*60*60*1000;	
 
 $(function(){
     createCalendar();
@@ -23,25 +23,56 @@ function jsonHandler(data){
     console.log(data);
     $.each(data.projects, function(i, project){
         console.log(project);
-        $("#projects ul").append($("<li/>").append($('<span/>').css("background-color", project.color)).append(project.nom));
+        $("#projects ul").append($("<li/>").append($('<span/>').css("background-color", project.color).append()).append(project.nom));
         $("#"+ project.deadline).css({
             "border-color": project.color, 
             "color":project.color
-            });
+        });
         
-        fillProjects(project.debut, project.fin);
+        fillProjects(project.debut, project.fin, project.color, project.onWeekend);
     });
 }
 
-function fillProjects(from, to){
-    var boo = new Date(from);
-    console.log(boo); 
+function fillProjects(_from, _to, color, onWeekend){
+    var from = new Date(_from);
+    var to = new Date(_to);
+    
+    
+    console.log(from.toLocaleString());
+    
+    
+    var diffDays = Math.abs((from.getTime() - to.getTime())/(oneDay));
+
+    
+    for(var i = 0 ; i < diffDays+1; i++){
+        var box = new Date(from);
+        box.setDate(from.getDate() + i);
+        
+
+        var _thisDay = pad(box.getDate(),2);
+        var _thisMonth = pad( (box.getMonth()+1 ),2);
+        var _thisYear = pad(box.getFullYear(),2);
+        
+        var str = _thisMonth + "-" + _thisDay + "-" + _thisYear;
+        
+        console.log(box.getDay());
+        
+        
+        
+        if((box.getDay()+6)%7 <= 4 || onWeekend == 'true'){
+            $("#"+ str).css({
+                "background-color": color, 
+                "color": "#FFFFFF"
+            });
+        }
+        
+    }
     
 }
 
 function createCalendar(){
     displayWeeks();
-    beforeToday(6);
+    beforeToday(2);
     createInterval(today, thisDay, 1000);
 }
 
@@ -54,7 +85,7 @@ function beforeToday(numWeeks){
     var _thisMonth = _today.getMonth();
     var _thisYear = _today.getFullYear();
     
-    var oneDay = 24*60*60*1000;	
+    
     var diffDays = Math.abs((today.getTime() - _today.getTime())/(oneDay));
 
     createInterval(_today, 0, diffDays);

@@ -5,28 +5,32 @@
         "debut":"01-07-2013",
         "fin":"02-01-2013",
         "color" : "#0000DD",
-        "deadline" : "03-11-2013"
+        "deadline" : "03-11-2013",
+        "onWeekend" : "false"
     },
     {
         "nom":"Cuistot integration",
         "debut":"02-04-2013",
         "fin":"02-08-2013",
         "color" : "#DD0000",
-        "deadline" : "03-10-2013"
+        "deadline" : "03-10-2013",
+        "onWeekend" : "false"
     },
     {
         "nom":"FQM",
         "debut":"02-11-2013",
         "fin":"02-15-2013",
         "color" : "#00DD00",
-        "deadline" : "03-01-2013"
+        "deadline" : "03-01-2013",
+        "onWeekend" : "false"
     },
     {
         "nom":"Repaq",
-        "debut":"02-11-2013",
-        "fin":"02-15-2013",
+        "debut":"04-11-2013",
+        "fin":"04-15-2013",
         "color" : "#00DDDD",
-        "deadline" : "06-03-2013"
+        "deadline" : "06-03-2013",
+        "onWeekend" : "false"
     }
     
     ]
