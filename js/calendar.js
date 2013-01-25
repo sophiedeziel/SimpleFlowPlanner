@@ -24,7 +24,7 @@ function jsonHandler(data){
     $.each(data.projects, function(i, project){
         console.log(project);
         $("#projects ul").append($("<li/>").append($('<span/>').css("background-color", project.color)).append(project.nom));
-        $("#"+ project.deadline).css("background-color", project.color);
+        $("#"+ project.deadline).css({"background-color": project.color, "color":"#FFFFFF"});
     });
 }
 
@@ -99,7 +99,7 @@ function createDay(i, d, _date, _thisMonth, _thisYear){
     if(i % 7 == 0){
         $('#calendar').append($('<div/>').addClass('spacer'));
     }
-    var div = $('<div/>').addClass('blank').attr('id',d + "-" + pad((_thisMonth + 1), 2) + "-" + _thisYear).html(d); 
+    var div = $('<div/>').addClass('blank').attr('id',pad(d, 2) + "-" + pad((_thisMonth + 1), 2) + "-" + _thisYear).html(d); 
            
     if(i == thisDay && _date == today){
         div.addClass('today');
