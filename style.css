@@ -10,14 +10,15 @@ h1{
     font-weight: 100;
 }
 
-.week, .weekend, .blank, .mois {
+.week, .weekend, .blank,.today, .mois {
     width: 50px;
     height: 50px;
-    margin: 3px;
     float: left;
     text-align: center;
     line-height: 50px;
     color: #FFFFFF;
+    margin: 2px;
+    border: solid #FFFFFF 1px;
 }
 
 .names{
@@ -29,12 +30,15 @@ h1{
     line-height: 80px;
     background-color:#FFFFFF;
     color: #777777;
+    
 }
-.week:hover, .weekend:hover, .blank:hover {
+.week:hover, .weekend:hover, .blank:hover, .today:hover {
     margin: 1px;
-    padding:2px;
     cursor: default;
     -webkit-box-shadow: 2px 2px 4px #999;
+    margin: 1px;
+    padding: 1px;
+    border-color: #F9F9F9;
 }
 
 .mois{
@@ -56,12 +60,8 @@ h1{
     background-color:#F9F9F9;
 }
 
-.week{
-    background-color: #CCFFCC;
-    color: #999999;
-}
 .weekend{
-    background-color: #CCCCCC;
+    background-color: #FFFFFF;
 }
 
 
@@ -77,9 +77,10 @@ h1{
 }
 
 #calendar{
-    width: 450px;
-    margin: 0px auto 0px auto;
-    padding: 100px;
+    width: 500px;
+    padding-top: 100px;
+    padding-left: 250px;
+    
    
 }
 #projects{
@@ -87,15 +88,10 @@ h1{
     float: left;
     margin-left: 30px;
     position: fixed;
+    z-index: -1;
 }
 .today{
-    margin: 2px;
     border: solid #CCCCCC 1px;
-}
-
-.today:hover{
-    margin: 1px;
-    padding: 1px;
 }
 
 ul {
